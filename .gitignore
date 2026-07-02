@@ -1,0 +1,4 @@
+dist/
+*.o
+*.err
+__wcl_00.lnk
