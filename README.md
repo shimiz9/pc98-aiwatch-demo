@@ -30,16 +30,18 @@ PC-98 FM音源デモ「AI Watch Intro」— 当時のパソコンショップ店
 - **画面:** DOS INT 21hのテキスト表示のみで構成(QuuBeeのHLE-DOSがカバーする範囲)。
   帯状スクロールは半角カナ+半角英数のみで構成し、1バイト=1桁スクロールでも
   文字化けしないようにしています([src/scroll.c](src/scroll.c))。
-- **画像:** ロゴ用のMAG(MAKI02)形式ファイルを、QuuBee側のデコーダ実装を仕様
+- **画像:** タイトル画面ではグラフィックVRAM(0xA800/0xB000/0xB800の3プレーン)へ
+  直接描画したロゴを表示しています([src/gvram.c](src/gvram.c), [src/logo.c](src/logo.c))。
+  別途、単体表示用のMAG(MAKI02)形式ファイルもQuuBee側のデコーダ実装を仕様
   リファレンスにした自作PNG→MAG変換スクリプト([tools/png2mag.py](tools/png2mag.py))
-  で生成しています。
+  で生成しています([gfx/AIWATCH.MAG](gfx/AIWATCH.MAG))。
 
 ## ビルド方法
 
 Open Watcom V2(16bit DOSクロスコンパイラ)が必要です。
 
 ```sh
-./tools/build.sh AIWATCH.EXE src/aiwatch.c src/music.c src/opna.c src/notes.c src/scroll.c
+./tools/build.sh AIWATCH.EXE src/aiwatch.c src/music.c src/opna.c src/notes.c src/scroll.c src/gvram.c src/logo.c
 ```
 
 `dist/AIWATCH.EXE`と`dist/AIWATCH.zip`が生成されます。ソースはUTF-8で編集していますが、
@@ -59,4 +61,13 @@ Open Watcom V2(16bit DOSクロスコンパイラ)が必要です。
 - OPNA単音発音(`OPNATEST.EXE`)
 - 帯状スクロール(`SCROLLTS.EXE`)
 - BGM 3パート再生(`MUSICTS.EXE`)
+- グラフィックVRAMへのロゴ描画(`GVRAMTS.EXE`, `AIWATCH.EXE`本体)
 - ロゴMAG画像の単体表示
+
+## 補足: グラフィック画面の注意点
+
+QuuBeeのHLE-DOSはテキスト画面の表示は自動で有効化しますが、グラフィック画面は
+プログラム側でGDCへSTARTコマンドを送らないと表示されません(`gvram_enable()`)。
+また、グラフィック画面は縦200ラインを2倍に引き伸ばして表示される挙動があるため、
+座標を指定する際は縦方向だけ半分の値で計算する必要があります。詳細は
+[docs/devlog.md](docs/devlog.md)のフェーズ10を参照してください。

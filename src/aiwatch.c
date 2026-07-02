@@ -10,6 +10,8 @@
 #include <dos.h>
 #include "music.h"
 #include "scroll.h"
+#include "gvram.h"
+#include "logo.h"
 
 static void dprint(const char *s)
 {
@@ -74,13 +76,11 @@ int main(void)
 
     /* ---- タイトル画面 ---- */
     cls();
-    dprint("\r\n\r\n$");
-    dprint("               ###  #####   #     #  ###  #######  #####  #     #\r\n$");
-    dprint("              #   #   #     #     # #   #    #    #       #     #\r\n$");
-    dprint("              #####   #     #  #  # #####    #    #       #######\r\n$");
-    dprint("              #   #   #     # # # # #   #    #    #       #     #\r\n$");
-    dprint("              #   # #####   #     # #   #    #     #####  #     #\r\n$");
-    dprint("\r\n$");
+    gvram_enable();
+    gvram_clear();
+    logo_draw();   /* "AI WATCH" ロゴ(マゼンタ背景+白文字)をグラフィック画面に描画 */
+
+    dprint("\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n$");
     dprint("                     生成AI・最新テクノロジー総合情報サイト\r\n$");
     dprint("\r\n\r\n$");
     dprint("                         Presented by pc98-aiwatch-demo\r\n$");
@@ -89,6 +89,7 @@ int main(void)
 
     /* ---- トピック紹介画面 ---- */
     cls();
+    gvram_clear();
     dprint("\r\n  AI Watch の主要カテゴリ\r\n$");
     dprint("  ======================\r\n\r\n$");
 
@@ -112,6 +113,7 @@ int main(void)
 
     /* ---- エンディング画面 ---- */
     cls();
+    gvram_clear();
     dprint("\r\n\r\n\r\n$");
     dprint("                           AI Watch でチェックしよう\r\n\r\n$");
     dprint("                        https://ai.watch.impress.co.jp/\r\n\r\n\r\n$");
