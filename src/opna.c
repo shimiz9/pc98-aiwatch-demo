@@ -48,28 +48,34 @@ static unsigned opna_keycode(int channel)
     return (channel < 3) ? (unsigned)ofs : (unsigned)(0x04 | ofs);
 }
 
-void opna_set_tone(int channel)
+void opna_set_patch(int channel, unsigned char ar_rs, unsigned char dr,
+                     unsigned char sr, unsigned char sl_rr, unsigned char tl)
 {
     int set = opna_set(channel);
     int ch  = opna_chofs(channel);
 
     /* アルゴリズム7・フィードバック0: 4オペレータ全てキャリア(加算合成)。
-     * スロット1-3は使わず無音化しておき、スロット4だけを鳴らす最小構成。 */
+     * スロット1-3は使わず無音化しておき、スロット4だけを鳴らす最小構成。
+     * スロット4のDT/MUL=1は固定(キャリアなのでMULを変えると音程自体が
+     * ずれてしまうため、音色の違いはエンベロープ(AR/DR/SR/SL/RR)とTLだけで付ける)。 */
     opna_write(set, (unsigned char)(0xB0 + ch), 0x07);
 
-    /* スロット1-3: 音量最大減衰(TL=127)で確実に無音にしておく */
-    opna_write(set, (unsigned char)(0x40 + ch), 127); /* slot1 TL */
-    opna_write(set, (unsigned char)(0x44 + ch), 127); /* slot2 TL */
-    opna_write(set, (unsigned char)(0x48 + ch), 127); /* slot3 TL */
+    opna_write(set, (unsigned char)(0x40 + ch), 127); /* slot1 TL: 無音化 */
+    opna_write(set, (unsigned char)(0x44 + ch), 127); /* slot2 TL: 無音化 */
+    opna_write(set, (unsigned char)(0x48 + ch), 127); /* slot3 TL: 無音化 */
 
-    /* スロット4(実際に鳴らすキャリア) */
-    opna_write(set, (unsigned char)(0x3C + ch), 0x01); /* DT=0, MUL=1 */
-    opna_write(set, (unsigned char)(0x4C + ch), 4);     /* TL: 0=最大音量。少し絞る */
-    opna_write(set, (unsigned char)(0x5C + ch), 0x1F);  /* AR=31(最速アタック), RS=0 */
-    opna_write(set, (unsigned char)(0x6C + ch), 0x07);  /* DR=7 */
-    opna_write(set, (unsigned char)(0x7C + ch), 0x02);  /* SR=2 */
-    opna_write(set, (unsigned char)(0x8C + ch), 0x07);  /* SL=0, RR=7 */
-    opna_write(set, (unsigned char)(0x9C + ch), 0x00);  /* SSG-EGは使わない */
+    opna_write(set, (unsigned char)(0x3C + ch), 0x01); /* slot4 DT=0, MUL=1 */
+    opna_write(set, (unsigned char)(0x4C + ch), tl);
+    opna_write(set, (unsigned char)(0x5C + ch), ar_rs);
+    opna_write(set, (unsigned char)(0x6C + ch), dr);
+    opna_write(set, (unsigned char)(0x7C + ch), sr);
+    opna_write(set, (unsigned char)(0x8C + ch), sl_rr);
+    opna_write(set, (unsigned char)(0x9C + ch), 0x00); /* SSG-EGは使わない */
+}
+
+void opna_set_tone(int channel)
+{
+    opna_set_patch(channel, 0x1F, 0x07, 0x02, 0x07, 4);
 }
 
 void opna_note_on(int channel, unsigned fnum, unsigned block)
