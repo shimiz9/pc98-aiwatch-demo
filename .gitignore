@@ -1,4 +1,5 @@
 dist/
+build/
 *.o
 *.err
 __wcl_00.lnk

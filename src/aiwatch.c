@@ -1,7 +1,7 @@
 /*
- * AIWATCH.EXE — PC-98 FM音源デモ「AI Watch Intro」
+ * AIWATCH.EXE - PC-98 FM音源デモ「AI Watch Intro」
  * QuuBee (https://quubee.pages.dev) 向け。DOS INT 21h の範囲のみで完結する
- * 最小構成(v0.1): タイトル表示 → トピック紹介 → エンディング。
+ * 最小構成(v0.1): タイトル表示 -> トピック紹介 -> エンディング。
  * 音源(OPNA直接I/O)・帯状スクロール・画像は後続フェーズで追加する。
  */
 #include <dos.h>
