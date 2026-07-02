@@ -39,15 +39,15 @@ int main(void)
 {
     cls();
 
-    dprint("\r\n\r\n");
-    dprint("      ###    #  #     #    #   #   ##   #####  ####  #  #\r\n$");
-    dprint("       #     #  #     #    #   #  #  #    #   #    # #  #\r\n$");
-    dprint("       #     #  #  #  #    #####  ####    #   #      ####\r\n$");
-    dprint("       #     #  #  #  #    #   #  #  #    #   #    #    #\r\n$");
-    dprint("      ###    #   ## ##     #   #  #  #    #    ####     #\r\n$");
-    dprint("\r\n");
+    dprint("\r\n\r\n$");
+    dprint("               ###  #####   #     #  ###  #######  #####  #     #\r\n$");
+    dprint("              #   #   #     #     # #   #    #    #       #     #\r\n$");
+    dprint("              #####   #     #  #  # #####    #    #       #######\r\n$");
+    dprint("              #   #   #     # # # # #   #    #    #       #     #\r\n$");
+    dprint("              #   # #####   #     # #   #    #     #####  #     #\r\n$");
+    dprint("\r\n$");
     dprint("        生成AI・最新テクノロジー総合情報サイト\r\n$");
-    dprint("\r\n\r\n");
+    dprint("\r\n\r\n$");
     dprint("            Presented by pc98-aiwatch-demo\r\n$");
     dprint("\r\n\r\n              -- Press any key --\r\n$");
     wait_key();
@@ -75,7 +75,7 @@ int main(void)
     wait_key();
 
     cls();
-    dprint("\r\n\r\n\r\n");
+    dprint("\r\n\r\n\r\n$");
     dprint("           AI Watch でチェックしよう\r\n\r\n$");
     dprint("       https://ai.watch.impress.co.jp/\r\n\r\n\r\n$");
     dprint("                  Thank you!\r\n$");
