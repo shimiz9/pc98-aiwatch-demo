@@ -5,10 +5,6 @@
 #include <dos.h>
 #include "music.h"
 
-/* 1ティック(8分音符)ぶんのウェイト。QuuBee実機での聴感に合わせて要調整。
- * 132BPM相当を狙った暫定値。速すぎ/遅すぎる場合はここを増減する。 */
-#define TICK_WAIT 600000UL
-
 static void dprint(const char *s)
 {
     bdos(0x09, (unsigned)s, 0);
@@ -32,7 +28,7 @@ int main(void)
 
     for (i = 0; i < 32 * 4; i++) {   /* 1小節8ティック x 4小節 x 4周 */
         music_tick();
-        wait(TICK_WAIT);
+        wait(MUSIC_TICK_WAIT);
     }
 
     dprint("\r\n  done.\r\n$");
