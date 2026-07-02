@@ -46,10 +46,10 @@ int main(void)
     dprint("              #   #   #     # # # # #   #    #    #       #     #\r\n$");
     dprint("              #   # #####   #     # #   #    #     #####  #     #\r\n$");
     dprint("\r\n$");
-    dprint("        生成AI・最新テクノロジー総合情報サイト\r\n$");
+    dprint("                     生成AI・最新テクノロジー総合情報サイト\r\n$");
     dprint("\r\n\r\n$");
-    dprint("            Presented by pc98-aiwatch-demo\r\n$");
-    dprint("\r\n\r\n              -- Press any key --\r\n$");
+    dprint("                         Presented by pc98-aiwatch-demo\r\n$");
+    dprint("\r\n\r\n                              -- Press any key --\r\n$");
     wait_key();
 
     cls();
@@ -71,14 +71,14 @@ int main(void)
     dprint("      ビジネス・現場でのAI活用事例を幅広く紹介\r\n\r\n$");
     wait(3000000UL);
 
-    dprint("\r\n              -- Press any key --\r\n$");
+    dprint("\r\n                              -- Press any key --\r\n$");
     wait_key();
 
     cls();
     dprint("\r\n\r\n\r\n$");
-    dprint("           AI Watch でチェックしよう\r\n\r\n$");
-    dprint("       https://ai.watch.impress.co.jp/\r\n\r\n\r\n$");
-    dprint("                  Thank you!\r\n$");
+    dprint("                           AI Watch でチェックしよう\r\n\r\n$");
+    dprint("                        https://ai.watch.impress.co.jp/\r\n\r\n\r\n$");
+    dprint("                                   Thank you!\r\n$");
     wait(8000000UL);
 
     return 0;
