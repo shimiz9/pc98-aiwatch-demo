@@ -3,9 +3,15 @@
 
 /* Y座標はすべて半分の値で指定している(QuuBee上のグラフィック画面は
  * 縦200ラインを2倍に引き伸ばして400ライン相当として表示するため)。 */
-void logo_draw(void)
+#define BADGE_X0 144
+#define BADGE_Y0 30
+#define BADGE_X1 495
+#define BADGE_Y1 56
+
+/* badge_color: バッジ背景の色(0-7)。文字は常に白(7)固定 */
+void logo_draw(int badge_color)
 {
-    gvram_fillrect(144, 30, 495, 56, 5); /* マゼンタのバッジ背景 */
+    gvram_fillrect(BADGE_X0, BADGE_Y0, BADGE_X1, BADGE_Y1, badge_color);
 
     gvram_fillrect(170, 36, 187, 38, 7); /* 白文字 "AI WATCH" */
     gvram_fillrect(200, 36, 229, 38, 7); /* 白文字 "AI WATCH" */
@@ -61,4 +67,3 @@ void logo_draw(void)
     gvram_fillrect(434, 48, 439, 50, 7); /* 白文字 "AI WATCH" */
     gvram_fillrect(470, 48, 475, 50, 7); /* 白文字 "AI WATCH" */
 }
-/* badge bottom(実座標系)= 56 -> 表示上は約112px相当 */

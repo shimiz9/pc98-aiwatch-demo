@@ -15,7 +15,10 @@ PC-98 FM音源デモ「AI Watch Intro」— 当時のパソコンショップ店
    ドラッグ&ドロップ
 3. ファイル一覧で`AIWATCH.EXE`を選び `▶ Run` で実行
 4. タイトル画面・トピック紹介画面は何かキーを押すと次に進みます
+   (5秒間入力が無ければ自動的に次の画面へ進みます)
    (自動的にBGMと帯状スクロールがバックグラウンドで流れ続けます)
+   (タイトル画面のロゴは1秒おきに色が変わり、トピック画面ではロボットが
+   画面内を左上→右上→左下→右下の「Z」の軌跡で横切ります)
 
 ロゴ画像単体([gfx/AIWATCH.MAG](gfx/AIWATCH.MAG))も、同じくQuuBeeへドロップする
 ことで単体表示できます。
@@ -32,16 +35,20 @@ PC-98 FM音源デモ「AI Watch Intro」— 当時のパソコンショップ店
   文字化けしないようにしています([src/scroll.c](src/scroll.c))。
 - **画像:** タイトル画面ではグラフィックVRAM(0xA800/0xB000/0xB800の3プレーン)へ
   直接描画したロゴを表示しています([src/gvram.c](src/gvram.c), [src/logo.c](src/logo.c))。
+  ロゴのバッジ色は1秒おきに変化します。トピック紹介画面では、同じグラフィック
+  VRAMを使って簡単なロボットが「Z」の軌跡で画面を横切ります([src/robot.c](src/robot.c))。
   別途、単体表示用のMAG(MAKI02)形式ファイルもQuuBee側のデコーダ実装を仕様
   リファレンスにした自作PNG→MAG変換スクリプト([tools/png2mag.py](tools/png2mag.py))
   で生成しています([gfx/AIWATCH.MAG](gfx/AIWATCH.MAG))。
+- **自動遷移:** 「Press any key」画面はDOSの実時刻(INT21h AH=2Ch)を使って
+  5秒間入力が無ければ自動的に次の画面へ進みます。
 
 ## ビルド方法
 
 Open Watcom V2(16bit DOSクロスコンパイラ)が必要です。
 
 ```sh
-./tools/build.sh AIWATCH.EXE src/aiwatch.c src/music.c src/opna.c src/notes.c src/scroll.c src/gvram.c src/logo.c
+./tools/build.sh AIWATCH.EXE src/aiwatch.c src/music.c src/opna.c src/notes.c src/scroll.c src/gvram.c src/logo.c src/robot.c
 ```
 
 `dist/AIWATCH.EXE`と`dist/AIWATCH.zip`が生成されます。ソースはUTF-8で編集していますが、
@@ -63,6 +70,7 @@ Open Watcom V2(16bit DOSクロスコンパイラ)が必要です。
 - BGM 3パート再生(`MUSICTS.EXE`)
 - グラフィックVRAMへのロゴ描画(`GVRAMTS.EXE`, `AIWATCH.EXE`本体)
 - ロゴMAG画像の単体表示
+- ロゴの色サイクル・5秒自動遷移・ロボットのZ軌跡アニメーション
 
 ## 補足: グラフィック画面の注意点
 
