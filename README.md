@@ -60,6 +60,20 @@ Open Watcom V2(16bit DOSクロスコンパイラ)が必要です。
 
 音名テーブル(`src/notes.h`/`src/notes.c`)は`tools/gen_notes.py`で再生成できます。
 
+## Claude Codeスキル: quubee-pc98-dev
+
+本プロジェクトの開発過程で得たQuuBee固有の仕様・落とし穴・対処法を、再利用可能な
+[Claude Codeスキル](.claude/skills/quubee-pc98-dev/SKILL.md)としてまとめています。
+文字コード変換(UTF-8→CP932)、`AH=09h`の`$`終端忘れ、カーソル位置保存/復元、
+OPNA音源プログラミング、グラフィックVRAM直接描画(GDC起動コマンド、縦2倍表示)、
+MAG画像形式の自作エンコードなど、今回つまずいた点とその対処法をリファレンス
+(`references/`)と再利用スクリプト(`scripts/build.sh`, `gen_notes.py`, `png2mag.py`)
+としてまとめてあります。
+
+Claude Codeで本リポジトリを開いた状態であれば自動的に読み込まれ、QuuBee向けの
+別のPC-98アプリを開発する際にも(このリポジトリの外へコピーしても)そのまま
+使えます。
+
 ## ターゲット環境の制約
 
 - 16bitリアルモード限定(DPMI/DOSエクステンダ不使用)
