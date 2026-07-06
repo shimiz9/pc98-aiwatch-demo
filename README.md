@@ -10,9 +10,13 @@ PC-98 FM音源デモ「AI Watch Intro」— 当時のパソコンショップ店
 
 ## 遊び方
 
+ビルド済みの`AIWATCH.zip`は[Releases](https://github.com/shimiz9/pc98-aiwatch-demo/releases)
+からダウンロードできます(自分でビルドする必要はありません)。
+
 1. https://quubee.pages.dev を開く
-2. [dist/AIWATCH.zip](dist/AIWATCH.zip)(または中の`AIWATCH.EXE`)をQuuBeeの画面に
-   ドラッグ&ドロップ
+2. [Releases](https://github.com/shimiz9/pc98-aiwatch-demo/releases)からダウンロードした
+   `AIWATCH.zip`(リポジトリ内なら[dist/AIWATCH.zip](dist/AIWATCH.zip)、または中の
+   `AIWATCH.EXE`)をQuuBeeの画面にドラッグ&ドロップ
 3. ファイル一覧で`AIWATCH.EXE`を選び `▶ Run` で実行
 4. タイトル画面・トピック紹介画面は何かキーを押すと次に進みます
    (5秒間入力が無ければ自動的に次の画面へ進みます)
